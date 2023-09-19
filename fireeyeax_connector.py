@@ -3,21 +3,22 @@
 # Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 #
 
+import json
+import os
+import sys
+import uuid
+
 # Phantom App imports
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-from phantom.vault import Vault
 import phantom.rules as phantom_rules
+import requests
+from bs4 import BeautifulSoup, UnicodeDammit
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
+from phantom.vault import Vault
 
 # Usage of the consts file is recommended
 from fireeyeax_consts import *
-import requests
-import json
-from bs4 import BeautifulSoup, UnicodeDammit
-import uuid
-import os
-import sys
 
 
 class RetVal(tuple):

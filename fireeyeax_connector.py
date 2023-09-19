@@ -589,7 +589,8 @@ class FireeyeAxConnector(BaseConnector):
         # Now post process the data,  uncomment code as you deem fit
 
         # Add the response into the data section
-        # Updating the response data so we can properly get the data. The data is returned by a string so we need to convert it into JSON to be useable
+        # Updating the response data so we can properly get the data.
+        # The data is returned by a string so we need to convert it into JSON to be useable
         try:
             resp_data = response['entity']['response']
         except Exception as e:
@@ -711,7 +712,8 @@ class FireeyeAxConnector(BaseConnector):
         try:
             code = FIREEYEAX_APPLICATION_CODES[application]
         except KeyError:
-            self.save_progress("Could not find the specified application in the available application list. Reverting to Default application code 0")
+            self.save_progress("Could not find the specified application in the available application list. "
+                               "Reverting to Default application code 0")
             pass
 
         return code

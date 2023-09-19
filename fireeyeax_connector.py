@@ -3,9 +3,6 @@
 # Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 #
 
-# Python 3 Compatibility imports
-from __future__ import print_function, unicode_literals
-
 # Phantom App imports
 import phantom.app as phantom
 from phantom.base_connector import BaseConnector
@@ -322,7 +319,7 @@ class FireeyeAxConnector(BaseConnector):
                 )
 
             # If we are submitting a file for detonation we need to update the content-type
-            if "files" in kwargs.keys() or FIREEYEAX_DETONATE_FILE_ENDPOINT == endpoint:
+            if "files" in list(kwargs.keys()) or FIREEYEAX_DETONATE_FILE_ENDPOINT == endpoint:
                 # Remove the Content-Type variable. Requests adds this automatically when uploading Files
                 del self._header['Content-Type']
             # If we are downloading the artifact data from a submissions we need to update the content-type
@@ -441,7 +438,7 @@ class FireeyeAxConnector(BaseConnector):
             profile = [x.strip() for x in profile.split(',')]
         except Exception:
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing the {}".format(PROFILE_ACTION_PARAM))
-        profile = list(filter(None, profile))
+        profile = list([_f for _f in profile if _f])
         if not profile:
             return action_result.set_status(phantom.APP_ERROR, "Please provide a valid value for the {}".format(PROFILE_ACTION_PARAM))
 
@@ -535,7 +532,7 @@ class FireeyeAxConnector(BaseConnector):
             urls = [x.strip() for x in urls.split(',')]
         except Exception:
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing the {}".format(URL_ACTION_PARAM))
-        urls = list(filter(None, urls))
+        urls = list([_f for _f in urls if _f])
         if not urls:
             return action_result.set_status(phantom.APP_ERROR, "Please provide a valid value for the {}".format(URL_ACTION_PARAM))
 
@@ -544,7 +541,7 @@ class FireeyeAxConnector(BaseConnector):
             profile = [x.strip() for x in profile.split(',')]
         except Exception:
             return action_result.set_status(phantom.APP_ERROR, "Error occurred while processing the {}".format(PROFILE_ACTION_PARAM))
-        profile = list(filter(None, profile))
+        profile = list([_f for _f in profile if _f])
         if not profile:
             return action_result.set_status(phantom.APP_ERROR, "Please provide a valid value for the {}".format(PROFILE_ACTION_PARAM))
 
@@ -738,7 +735,7 @@ class FireeyeAxConnector(BaseConnector):
         action = self.get_action_identifier()
         action_execution_status = phantom.APP_SUCCESS
 
-        if action in action_mapping.keys():
+        if action in list(action_mapping.keys()):
             action_function = action_mapping[action]
             action_execution_status = action_function(param)
         return action_execution_status

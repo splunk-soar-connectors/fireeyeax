@@ -411,11 +411,11 @@ class FireeyeAxConnector(BaseConnector):
 
         if not vault_info:
             try:
-                error_msg = "Error occurred while fetching the vault information of the Vault ID: {}".format(vault_id)
+                error_message = "Error occurred while fetching the vault information of the Vault ID: {}".format(vault_id)
             except:
-                error_msg = "Error occurred while fetching the vault information of the specified Vault ID"
+                error_message = "Error occurred while fetching the vault information of the specified Vault ID"
 
-            return action_result.set_status(phantom.APP_ERROR, error_msg)
+            return action_result.set_status(phantom.APP_ERROR, error_message)
 
         # Loop through the Vault infomation
         for item in vault_info:
@@ -430,8 +430,8 @@ class FireeyeAxConnector(BaseConnector):
                     'file': (item['name'], vault_file)
                 }
             except Exception as e:
-                error_msg = self._get_error_message_from_exception(e)
-                return action_result.set_status(phantom.APP_ERROR, "Unable to open vault file: {}".format(error_msg))
+                error_message = self._get_error_message_from_exception(e)
+                return action_result.set_status(phantom.APP_ERROR, "Unable to open vault file: {}".format(error_message))
 
         # Process parameters
         profile = param.get("profile")

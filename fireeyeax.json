@@ -21,6 +21,7 @@
     "package_name": "phantom_fireeyeax",
     "main_module": "fireeyeax_connector.py",
     "min_phantom_version": "6.0.0",
+    "fips_compliant": false,
     "app_wizard_version": "1.0.0",
     "configuration": {
         "base_url": {

@@ -1,8 +1,20 @@
 # File: fireeyeax_connector.py
 #
-# Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
+# Copyright (c) Robert Drouin, 2021-2023
 #
-
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
+#
+#
+# Standard library imports
 import json
 import os
 import sys
@@ -12,7 +24,7 @@ import uuid
 import phantom.app as phantom
 import phantom.rules as phantom_rules
 import requests
-from bs4 import BeautifulSoup, UnicodeDammit
+from bs4 import BeautifulSoup
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 from phantom.vault import Vault
@@ -56,57 +68,31 @@ class FireeyeAxConnector(BaseConnector):
 
         return phantom.APP_SUCCESS, parameter
 
-    def _handle_py_ver_compat_for_input_str(self, input_str):
-        """
-        This method returns the encoded|original string based on the Python version.
-        :param input_str: Input string to be processed
-        :return: input_str (Processed input string based on following logic 'input_str - Python 3; encoded input_str - Python 2')
-        """
-
-        try:
-            if input_str and self._python_version == 2:
-                input_str = UnicodeDammit(input_str).unicode_markup.encode('utf-8')
-        except:
-            self.debug_print("Error occurred while handling python 2to3 compatibility for the input string")
-
-        return input_str
-
     def _get_error_message_from_exception(self, e):
-        """ This method is used to get appropriate error messages from the exception.
-        :param e: Exception object
-        :return: error message
+        """Get an appropriate error message from the exception.
+
+            :param e: Exception object
+            :return: error message
         """
+        error_code = None
+        error_message = ERR_MSG_UNAVAILABLE
 
+        self.error_print("Error occurred.", e)
         try:
-            if e.args:
+            if hasattr(e, "args"):
                 if len(e.args) > 1:
-                    err_code = e.args[0]
-                    err_msg = e.args[1]
+                    error_code = e.args[0]
+                    error_message = e.args[1]
                 elif len(e.args) == 1:
-                    err_code = ERR_CODE_MSG
-                    err_msg = e.args[0]
-            else:
-                err_code = ERR_CODE_MSG
-                err_msg = ERR_MSG_UNAVAILABLE
-        except:
-            err_code = ERR_CODE_MSG
-            err_msg = ERR_MSG_UNAVAILABLE
+                    error_message = e.args[0]
+        except Exception as e:
+            self.error_print(
+                f"Error occurred while fetching exception information. Details: {str(e)}")
 
-        try:
-            err_msg = self._handle_py_ver_compat_for_input_str(err_msg)
-        except TypeError:
-            err_msg = TYPE_ERR_MSG
-        except:
-            err_msg = ERR_MSG_UNAVAILABLE
-
-        try:
-            if err_code in ERR_CODE_MSG:
-                error_text = "Error Message: {0}".format(err_msg)
-            else:
-                error_text = "Error Code: {0}. Error Message: {1}".format(err_code, err_msg)
-        except:
-            self.debug_print(PARSE_ERR_MSG)
-            error_text = PARSE_ERR_MSG
+        if not error_code:
+            error_text = f"Error message: {error_message}"
+        else:
+            error_text = f"Error code: {error_code}. Error message: {error_message}"
 
         return error_text
 
@@ -136,8 +122,7 @@ class FireeyeAxConnector(BaseConnector):
         except:
             error_text = "Cannot parse error details"
 
-        message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code,
-                self._handle_py_ver_compat_for_input_str(error_text))
+        message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code, error_text)
 
         message = message.replace('{', '{{').replace('}', '}}')
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
@@ -160,7 +145,6 @@ class FireeyeAxConnector(BaseConnector):
 
         # You should process the error returned in the json
         error_message = r.text.replace('{', '{{').replace('}', '}}')
-        error_message = self._handle_py_ver_compat_for_input_str(error_message)
         message = "Error from server. Status Code: {0} Data from server: {1}".format(
             r.status_code, error_message)
 
@@ -247,7 +231,7 @@ class FireeyeAxConnector(BaseConnector):
         # everything else is actually an error at this point
         message = "Can't process response from server. Status Code: {0} Data from server: {1}".format(
             r.status_code,
-            self._handle_py_ver_compat_for_input_str(r.text.replace('{', '{{').replace('}', '}}'))
+            r.text.replace('{', '{{').replace('}', '}}')
         )
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
@@ -401,7 +385,7 @@ class FireeyeAxConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Access action parameters passed in the 'param' dictionary
-        vault_id = self._handle_py_ver_compat_for_input_str(param.get('vault_id'))
+        vault_id = param.get('vault_id')
 
         # Get vault info from the vauld_id parameter
         try:
@@ -751,12 +735,6 @@ class FireeyeAxConnector(BaseConnector):
         # get the asset config
         config = self.get_config()
 
-        # Fetching the Python major version
-        try:
-            self._python_version = int(sys.version_info[0])
-        except:
-            return self.set_status(phantom.APP_ERROR, "Error occurred while getting the Phantom server's Python major version")
-
         # Check to see which instance the user selected. Use the appropriate URL.
         base_url = config.get('base_url').strip("/")
 
@@ -791,12 +769,14 @@ def main():
     argparser.add_argument('input_test_json', help='Input Test JSON file')
     argparser.add_argument('-u', '--username', help='username', required=False)
     argparser.add_argument('-p', '--password', help='password', required=False)
+    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
 
     args = argparser.parse_args()
     session_id = None
 
     username = args.username
     password = args.password
+    verify = args.verify
 
     if username is not None and password is None:
 
@@ -809,7 +789,7 @@ def main():
             login_url = FireeyeAxConnector._get_phantom_base_url() + '/login'
 
             print("Accessing the Login page")
-            r = requests.get(login_url, verify=False)
+            r = requests.get(login_url, verify=verify)
             csrftoken = r.cookies['csrftoken']
 
             data = dict()
@@ -822,11 +802,11 @@ def main():
             headers['Referer'] = login_url
 
             print("Logging into Platform to get the session id")
-            r2 = requests.post(login_url, verify=False, data=data, headers=headers)
+            r2 = requests.post(login_url, verify=verify, data=data, headers=headers)
             session_id = r2.cookies['sessionid']
         except Exception as e:
             print("Unable to get session id from the platform. Error: " + str(e))
-            exit(1)
+            sys.exit(1)
 
     with open(args.input_test_json) as f:
         in_json = f.read()
@@ -843,7 +823,7 @@ def main():
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))
 
-    exit(0)
+    sys.exit(0)
 
 
 if __name__ == '__main__':

@@ -75,7 +75,7 @@ class FireeyeAxConnector(BaseConnector):
             :return: error message
         """
         error_code = None
-        error_message = ERROR_MSG_UNAVAILABLE
+        error_message = ERR_MSG_UNAVAILABLE
 
         self.error_print("Error occurred.", e)
         try:

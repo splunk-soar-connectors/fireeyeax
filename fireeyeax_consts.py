@@ -1,4 +1,4 @@
-# File: fireeyeax_const.py
+# File: fireeyeax_consts.py
 #
 # Copyright (c) Robert Drouin, 2021-2023
 #

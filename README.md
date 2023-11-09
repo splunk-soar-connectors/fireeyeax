@@ -2,17 +2,27 @@
 # Fireeye AX
 
 Publisher: Robert Drouin  
-Connector Version: 1\.0\.1  
+Connector Version: 2.0.0  
 Product Vendor: Fireeye  
 Product Name: Advanced Malware Analysis  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.9\.39220  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 6.0.0  
 
 This app provides connectivity to the Fireeye Advanced Malware Analysis tool
 
-[comment]: # " File: readme.md"
+[comment]: # "File: README.md"
+[comment]: # "Copyright (c) Robert Drouin, 2021-2023"
 [comment]: # ""
-[comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
+[comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
+[comment]: # "you may not use this file except in compliance with the License."
+[comment]: # "You may obtain a copy of the License at"
+[comment]: # ""
+[comment]: # "    http://www.apache.org/licenses/LICENSE-2.0"
+[comment]: # ""
+[comment]: # "Unless required by applicable law or agreed to in writing, software distributed under"
+[comment]: # "the License is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,"
+[comment]: # "either express or implied. See the License for the specific language governing permissions"
+[comment]: # "and limitations under the License."
 [comment]: # ""
 This app is used for detonating files and URLs on a Fireeye AX (Malware Analysis) console.
 
@@ -41,7 +51,7 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**base\_url** |  required  | string | Base URL for the console, i\.e\., https\://<console IP or FQDN>
+**base_url** |  required  | string | Base URL for the console, i.e., https://<console IP or FQDN>
 **username** |  required  | string | Username to log into the console
 **password** |  required  | password | Password for the username
 
@@ -71,43 +81,43 @@ Run a file in the sandbox and retrieve the analysis results
 Type: **generic**  
 Read only: **False**
 
-Detonate a file in the AX console\.
+Detonate a file in the AX console.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**vault\_id** |  required  | Vault ID of the file to detonate | string |  `pe file`  `pdf`  `flash`  `apk`  `jar`  `doc`  `xls`  `ppt` 
+**vault_id** |  required  | Vault ID of the file to detonate | string |  `pe file`  `pdf`  `flash`  `apk`  `jar`  `doc`  `xls`  `ppt` 
 **priority** |  required  | Sets the analysis priority, default is Normal | string | 
-**analysis\_type** |  required  | Specifies the analysis mode | string | 
+**analysis_type** |  required  | Specifies the analysis mode | string | 
 **force** |  optional  | Perform an analysis on the file even if the file exactly matches an analysis that has already been performed on this file | boolean | 
 **prefetch** |  optional  | Determine the file target based on an internal determination rather than browsing to the target location | boolean | 
-**enable\_vnc** |  optional  | Enable VNC while submitting on a Malware Analysis appliance, default is False | boolean | 
+**enable_vnc** |  optional  | Enable VNC while submitting on a Malware Analysis appliance, default is False | boolean | 
 **profile** |  required  | Select the Malware Analysis profile to use for analysis | string | 
 **application** |  required  | Specifies the ID of the application to be used for the analysis | string | 
 **timeout** |  required  | Specifies the timeout period for the analysis in seconds | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.vault\_id | string |  `pe file`  `pdf`  `flash`  `apk`  `jar`  `doc`  `xls`  `ppt` 
-action\_result\.parameter\.priority | string | 
-action\_result\.parameter\.analysis\_type | string | 
-action\_result\.parameter\.force | boolean | 
-action\_result\.parameter\.prefetch | boolean | 
-action\_result\.parameter\.enable\_vnc | boolean | 
-action\_result\.parameter\.profile | string | 
-action\_result\.parameter\.application | string | 
-action\_result\.parameter\.timeout | numeric | 
-action\_result\.data\.\*\.submission\_details\.\*\.id | string |  `fireeyeax submission id` 
-action\_result\.data\.\*\.submission\_details\.\*\.job\_ids | string | 
-action\_result\.data\.\*\.submission\_details\.\*\.uuid | string |  `fireeyeax submission uuid` 
-action\_result\.data\.\*\.submission\_details\.\*\.vnc\_port | numeric | 
-action\_result\.data\.\*\.id | numeric | 
-action\_result\.status | string | 
-action\_result\.message | string | 
-action\_result\.summary | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.analysis_type | string |  |  
+action_result.parameter.application | string |  |   Auto  Adobe Acrobat Reader DC 15.008  Adobe Reader 10.0  Adobe Reader 10.1  Adobe Reader 11.0  Adobe Reader 11.0.01  Adobe Reader 7.0  Adobe Reader 8.0  Adobe Reader 9.0  Adobe Reader 9.4  CMSTP  CMSTP64  Chrome 26.0  Chrome 36.0  Chrome 40.0  Command Prompt  Firefox 17.0  Firefox 19.0  Firefox 38.0  Firefox 42.0  Generic 1.0  Hancom Handler 2018  IIS_Server64 1.0  Ichitaro 2013  InternetExplorer (64-bit) 11.0  InternetExplorer 10.0  InternetExplorer 11.0  InternetExplorer 6.0  InternetExplorer 7.0  InternetExplorer 8.0  InternetExplorer 9.0  InternetExplorer X  Java JDK JRE 7.13  Java JDK JRE 8.0  MS Access 2013  MS Excel 2003 SP2  MS Excel 2003 SP3  MS Excel 2007  MS Excel 2010 SP2  MS Excel 2013  MS Excel 2013 SP1  MS OneNote 2013  MS Outlook 2007  MS Outlook 2013  MS Outlook 2013 SP1  MS PowerPoint 2003 SP2  MS PowerPoint 2003 SP3  MS PowerPoint 2007  MS PowerPoint 2010 SP2  MS PowerPoint 2013  MS PowerPoint 2013 SP1  MS Publisher 2013  MS Publisher 2013 SP1  MS Word 2003 SP2  MS Word 2003 SP3  MS Word 2007  MS Word 2010 SP2  MS Word 2013  MS Word 2013 SP1  Microsoft Compiled HTML Help  Microsoft Edge (64-bit) 20.10240  Microsoft HTML Application Host 10.0  Microsoft HTML Application Host 11.0  Microsoft HTML Application Host 8.0  Microsoft Windows Help File  Multiple Adobe Reader X  Multiple MS Excel X  Multiple MS PowerPoint X  Multiple MS Word X  PHP WebShell 1.0  QuickTime Player 7.6  QuickTime Player 7.7  RealPlayer 12.0  RealPlayer 16.0  RegSVR 32.0  Regedit  RunDLL 1.0  Shellcode32 1.0  Shellcode64 1.0  VLC Media Player 2.0  VLC Media Player 2.1  WAB  WMIC 1.0  Windows Explorer  Windows Media Player 11.0  Windows Media Player 12.0  Windows PowerShell  Windows Scripting Host  XML Handler  XPS Viewer 1.0 
+action_result.parameter.enable_vnc | boolean |  |   True  False 
+action_result.parameter.force | boolean |  |   True  False 
+action_result.parameter.prefetch | boolean |  |   True  False 
+action_result.parameter.priority | string |  |  
+action_result.parameter.profile | string |  |   win7-sp1  winxp-sp3  win7x64-sp1  win10x64 
+action_result.parameter.timeout | numeric |  |   1 
+action_result.parameter.vault_id | string |  `pe file`  `pdf`  `flash`  `apk`  `jar`  `doc`  `xls`  `ppt`  |  
+action_result.data.\*.id | numeric |  |  
+action_result.data.\*.submission_details.\*.id | string |  `fireeyeax submission id`  |  
+action_result.data.\*.submission_details.\*.job_ids | string |  |  
+action_result.data.\*.submission_details.\*.uuid | string |  `fireeyeax submission uuid`  |  
+action_result.data.\*.submission_details.\*.vnc_port | numeric |  |   8080 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'detonate url'
 Run a URL in the sandbox
@@ -115,43 +125,43 @@ Run a URL in the sandbox
 Type: **generic**  
 Read only: **False**
 
-Detonate a URL in the AX console\.
+Detonate a URL in the AX console.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**urls** |  required  | URL\(s\) to detonate\. Comma\-separated list allowed | string |  `url` 
+**urls** |  required  | URL(s) to detonate. Comma-separated list allowed | string |  `url` 
 **priority** |  required  | Sets the analysis priority, default is Normal | string | 
-**analysis\_type** |  required  | Specifies the analysis mode | string | 
+**analysis_type** |  required  | Specifies the analysis mode | string | 
 **force** |  optional  | Perform an analysis on the file even if the file exactly matches an analysis that has already been performed on this file | boolean | 
 **prefetch** |  optional  | Determine the file target based on an internal determination rather than browsing to the target location | boolean | 
-**enable\_vnc** |  optional  | Enable VNC while submitting on a Malware Analysis appliance, default is False | boolean | 
+**enable_vnc** |  optional  | Enable VNC while submitting on a Malware Analysis appliance, default is False | boolean | 
 **profile** |  required  | Select the Malware Analysis profile to use for analysis | string | 
 **application** |  required  | Specifies the ID of the application to be used for the analysis | string | 
 **timeout** |  required  | Specifies the timeout period for the analysis in seconds | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.urls | string |  `url` 
-action\_result\.parameter\.priority | string | 
-action\_result\.parameter\.analysis\_type | string | 
-action\_result\.parameter\.force | boolean | 
-action\_result\.parameter\.prefetch | boolean | 
-action\_result\.parameter\.enable\_vnc | boolean | 
-action\_result\.parameter\.profile | string | 
-action\_result\.parameter\.application | string | 
-action\_result\.parameter\.timeout | numeric | 
-action\_result\.data\.\*\.submission\_details\.\*\.id | string |  `fireeyeax submission id` 
-action\_result\.data\.\*\.submission\_details\.\*\.job\_ids | string | 
-action\_result\.data\.\*\.submission\_details\.\*\.uuid | string |  `fireeyeax submission uuid` 
-action\_result\.data\.\*\.submission\_details\.\*\.vnc\_port | numeric | 
-action\_result\.data\.\*\.id | numeric | 
-action\_result\.status | string | 
-action\_result\.message | string | 
-action\_result\.summary | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.analysis_type | string |  |  
+action_result.parameter.application | string |  |   Auto  Adobe Acrobat Reader DC 15.008  Adobe Reader 10.0  Adobe Reader 10.1  Adobe Reader 11.0  Adobe Reader 11.0.01  Adobe Reader 7.0  Adobe Reader 8.0  Adobe Reader 9.0  Adobe Reader 9.4  CMSTP  CMSTP64  Chrome 26.0  Chrome 36.0  Chrome 40.0  Command Prompt  Firefox 17.0  Firefox 19.0  Firefox 38.0  Firefox 42.0  Generic 1.0  Hancom Handler 2018  IIS_Server64 1.0  Ichitaro 2013  InternetExplorer (64-bit) 11.0  InternetExplorer 10.0  InternetExplorer 11.0  InternetExplorer 6.0  InternetExplorer 7.0  InternetExplorer 8.0  InternetExplorer 9.0  InternetExplorer X  Java JDK JRE 7.13  Java JDK JRE 8.0  MS Access 2013  MS Excel 2003 SP2  MS Excel 2003 SP3  MS Excel 2007  MS Excel 2010 SP2  MS Excel 2013  MS Excel 2013 SP1  MS OneNote 2013  MS Outlook 2007  MS Outlook 2013  MS Outlook 2013 SP1  MS PowerPoint 2003 SP2  MS PowerPoint 2003 SP3  MS PowerPoint 2007  MS PowerPoint 2010 SP2  MS PowerPoint 2013  MS PowerPoint 2013 SP1  MS Publisher 2013  MS Publisher 2013 SP1  MS Word 2003 SP2  MS Word 2003 SP3  MS Word 2007  MS Word 2010 SP2  MS Word 2013  MS Word 2013 SP1  Microsoft Compiled HTML Help  Microsoft Edge (64-bit) 20.10240  Microsoft HTML Application Host 10.0  Microsoft HTML Application Host 11.0  Microsoft HTML Application Host 8.0  Microsoft Windows Help File  Multiple Adobe Reader X  Multiple MS Excel X  Multiple MS PowerPoint X  Multiple MS Word X  PHP WebShell 1.0  QuickTime Player 7.6  QuickTime Player 7.7  RealPlayer 12.0  RealPlayer 16.0  RegSVR 32.0  Regedit  RunDLL 1.0  Shellcode32 1.0  Shellcode64 1.0  VLC Media Player 2.0  VLC Media Player 2.1  WAB  WMIC 1.0  Windows Explorer  Windows Media Player 11.0  Windows Media Player 12.0  Windows PowerShell  Windows Scripting Host  XML Handler  XPS Viewer 1.0 
+action_result.parameter.enable_vnc | boolean |  |   True  False 
+action_result.parameter.force | boolean |  |   True  False 
+action_result.parameter.prefetch | boolean |  |   True  False 
+action_result.parameter.priority | string |  |  
+action_result.parameter.profile | string |  |   win7-sp1  winxp-sp3  win7x64-sp1  win10x64 
+action_result.parameter.timeout | numeric |  |   1 
+action_result.parameter.urls | string |  `url`  |  
+action_result.data.\*.id | numeric |  |  
+action_result.data.\*.submission_details.\*.id | string |  `fireeyeax submission id`  |  
+action_result.data.\*.submission_details.\*.job_ids | string |  |  
+action_result.data.\*.submission_details.\*.uuid | string |  `fireeyeax submission uuid`  |  
+action_result.data.\*.submission_details.\*.vnc_port | numeric |  |   8080 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |    
 
 ## action: 'get report'
 Get results of an already completed detonation
@@ -166,18 +176,18 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **extended** |  optional  | Get additional information from the console about this report | boolean | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.id | string |  `fireeyeax submission id` 
-action\_result\.parameter\.extended | boolean | 
-action\_result\.data\.\*\.alert\.\*\.malicious | string | 
-action\_result\.data\.\*\.alert\.\*\.severity | string | 
-action\_result\.data\.\*\.alert\.\*\.uuid | string |  `fireeyeax submission uuid` 
-action\_result\.status | string | 
-action\_result\.message | string | 
-action\_result\.summary | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.extended | boolean |  |   True  False 
+action_result.parameter.id | string |  `fireeyeax submission id`  |  
+action_result.data.\*.alert.\*.malicious | string |  |  
+action_result.data.\*.alert.\*.severity | string |  |  
+action_result.data.\*.alert.\*.uuid | string |  `fireeyeax submission uuid`  |  
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'save artifacts'
 Save a ZIP file of the detonation report to the Vault
@@ -185,7 +195,7 @@ Save a ZIP file of the detonation report to the Vault
 Type: **investigate**  
 Read only: **True**
 
-This action downloads all the malware artifacts from a detonation as a ZIP file and adds that file to the vault\.
+This action downloads all the malware artifacts from a detonation as a ZIP file and adds that file to the vault.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -193,15 +203,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **uuid** |  required  | UUID of detonation to get the results of | string |  `fireeyeax submission uuid` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.uuid | string |  `fireeyeax submission uuid` 
-action\_result\.data | string | 
-action\_result\.status | string | 
-action\_result\.message | string | 
-action\_result\.summary | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.uuid | string |  `fireeyeax submission uuid`  |  
+action_result.data | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get status'
 Gets the status of a detonation report
@@ -215,18 +225,18 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **id** |  required  | Submission ID of the detonation report to get the status of | string |  `fireeyeax submission id` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.id | string |  `fireeyeax submission id` 
-action\_result\.data\.\*\.analysisStatus | string | 
-action\_result\.data\.\*\.submissionStatus | string | 
-action\_result\.data\.\*\.verdict | string | 
-action\_result\.data\.\*\.submission\_details\.\*\.vnc\_port | numeric | 
-action\_result\.data\.\*\.submission\_details\.\*\.job\_ids | string | 
-action\_result\.data\.\*\.submission\_details\.\*\.uuid | string |  `fireeyeax submission uuid` 
-action\_result\.data\.\*\.submission\_details\.\*\.id | string |  `fireeyeax submission id` 
-action\_result\.status | string | 
-action\_result\.message | string | 
-action\_result\.summary | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.id | string |  `fireeyeax submission id`  |   12345 
+action_result.data.\*.analysisStatus | string |  |   In Progress  Done  Submission not found 
+action_result.data.\*.submissionStatus | string |  |   running  done 
+action_result.data.\*.submission_details.\*.id | string |  `fireeyeax submission id`  |   12345 
+action_result.data.\*.submission_details.\*.job_ids | string |  |  
+action_result.data.\*.submission_details.\*.uuid | string |  `fireeyeax submission uuid`  |  
+action_result.data.\*.submission_details.\*.vnc_port | numeric |  |   8080 
+action_result.data.\*.verdict | string |  |   malicious  non-malicious 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 

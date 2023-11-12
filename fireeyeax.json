@@ -7,15 +7,21 @@
     "logo": "logo_fireeyeax.svg",
     "logo_dark": "logo_fireeyeax_dark.svg",
     "product_name": "Advanced Malware Analysis",
-    "python_version": "2.7",
+    "python_version": "3",
     "product_version_regex": ".*",
     "publisher": "Robert Drouin",
-    "license": "Copyright (c) Robert Drouin, 2021",
-    "app_version": "1.0.0",
-    "utctime_updated": "2020-09-25T17:44:07.565949Z",
+    "contributors": [
+        {
+            "name": "Moshe Kaplan"
+        }
+    ],
+    "license": "Copyright (c) Robert Drouin, 2021-2023",
+    "app_version": "2.0.0",
+    "utctime_updated": "2022-01-07T21:06:38.000000Z",
     "package_name": "phantom_fireeyeax",
     "main_module": "fireeyeax_connector.py",
-    "min_phantom_version": "4.9.39220",
+    "min_phantom_version": "6.0.0",
+    "fips_compliant": false,
     "app_wizard_version": "1.0.0",
     "configuration": {
         "base_url": {
@@ -235,62 +241,18 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.vault_id",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "contains": [
-                        "pe file",
-                        "pdf",
-                        "flash",
-                        "apk",
-                        "jar",
-                        "doc",
-                        "xls",
-                        "ppt"
-                    ],
-                    "column_name": "Vault ID",
-                    "column_order": 1
-                },
-                {
-                    "data_path": "action_result.parameter.priority",
-                    "data_type": "string"
+                    "column_name": "Status",
+                    "column_order": 0,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.analysis_type",
                     "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.force",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.prefetch",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.enable_vnc",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.profile",
-                    "data_type": "string",
-                    "example_values": [
-                        "win7-sp1",
-                        "winxp-sp3",
-                        "win7x64-sp1",
-                        "win10x64"
-                    ]
                 },
                 {
                     "data_path": "action_result.parameter.application",
@@ -389,11 +351,69 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.enable_vnc",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.force",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.prefetch",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.priority",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.profile",
+                    "data_type": "string",
+                    "example_values": [
+                        "win7-sp1",
+                        "winxp-sp3",
+                        "win7x64-sp1",
+                        "win10x64"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.timeout",
                     "data_type": "numeric",
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.vault_id",
+                    "data_type": "string",
+                    "contains": [
+                        "pe file",
+                        "pdf",
+                        "flash",
+                        "apk",
+                        "jar",
+                        "doc",
+                        "xls",
+                        "ppt"
+                    ],
+                    "column_name": "Vault ID",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.data.*.submission_details.*.id",
@@ -429,25 +449,11 @@
                     "column_order": 5
                 },
                 {
-                    "data_path": "action_result.data.*.id",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 0,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -651,53 +657,18 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.urls",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "contains": [
-                        "url"
+                    "column_name": "Status",
+                    "column_order": 0,
+                    "example_values": [
+                        "success",
+                        "failed"
                     ]
-                },
-                {
-                    "data_path": "action_result.parameter.priority",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.analysis_type",
                     "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.force",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.prefetch",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.enable_vnc",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.profile",
-                    "data_type": "string",
-                    "example_values": [
-                        "win7-sp1",
-                        "winxp-sp3",
-                        "win7x64-sp1",
-                        "win10x64"
-                    ]
                 },
                 {
                     "data_path": "action_result.parameter.application",
@@ -796,11 +767,60 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.enable_vnc",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.force",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.prefetch",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.priority",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.profile",
+                    "data_type": "string",
+                    "example_values": [
+                        "win7-sp1",
+                        "winxp-sp3",
+                        "win7x64-sp1",
+                        "win10x64"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.timeout",
                     "data_type": "numeric",
                     "example_values": [
                         1
                     ]
+                },
+                {
+                    "data_path": "action_result.parameter.urls",
+                    "data_type": "string",
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.data.*.submission_details.*.id",
@@ -836,25 +856,11 @@
                     "column_order": 4
                 },
                 {
-                    "data_path": "action_result.data.*.id",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 0,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -897,10 +903,11 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.id",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "contains": [
-                        "fireeyeax submission id"
+                    "example_values": [
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -909,6 +916,13 @@
                     "example_values": [
                         true,
                         false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.id",
+                    "data_type": "string",
+                    "contains": [
+                        "fireeyeax submission id"
                     ]
                 },
                 {
@@ -927,19 +941,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -987,6 +993,16 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.uuid",
                     "data_type": "string",
                     "contains": [
@@ -1000,21 +1016,11 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "Status",
-                    "column_order": 1,
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary",
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -1057,6 +1063,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.id",
                     "data_type": "string",
                     "example_values": [
@@ -1088,23 +1102,16 @@
                     "column_order": 1
                 },
                 {
-                    "data_path": "action_result.data.*.verdict",
+                    "data_path": "action_result.data.*.submission_details.*.id",
                     "data_type": "string",
                     "example_values": [
-                        "malicious",
-                        "non-malicious"
+                        "12345"
                     ],
-                    "column_name": "Verdict",
-                    "column_order": 3
-                },
-                {
-                    "data_path": "action_result.data.*.submission_details.*.vnc_port",
-                    "data_type": "numeric",
-                    "example_values": [
-                        8080
+                    "contains": [
+                        "fireeyeax submission id"
                     ],
-                    "column_name": "VNC Port",
-                    "column_order": 4
+                    "column_name": "ID",
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.submission_details.*.job_ids",
@@ -1122,31 +1129,30 @@
                     "column_order": 6
                 },
                 {
-                    "data_path": "action_result.data.*.submission_details.*.id",
-                    "data_type": "string",
+                    "data_path": "action_result.data.*.submission_details.*.vnc_port",
+                    "data_type": "numeric",
                     "example_values": [
-                        "12345"
+                        8080
                     ],
-                    "contains": [
-                        "fireeyeax submission id"
-                    ],
-                    "column_name": "ID",
-                    "column_order": 0
+                    "column_name": "VNC Port",
+                    "column_order": 4
                 },
                 {
-                    "data_path": "action_result.status",
+                    "data_path": "action_result.data.*.verdict",
                     "data_type": "string",
                     "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
+                        "malicious",
+                        "non-malicious"
+                    ],
+                    "column_name": "Verdict",
+                    "column_order": 3
                 },
                 {
                     "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -1169,5 +1175,29 @@
             },
             "versions": "EQ(*)"
         }
-    ]
+    ],
+    "pip_dependencies": {
+        "wheel": [
+            {
+                "module": "beautifulsoup4",
+                "input_file": "wheels/py3/beautifulsoup4-4.12.2-py3-none-any.whl"
+            },
+            {
+                "module": "soupsieve",
+                "input_file": "wheels/py3/soupsieve-2.3.2.post1-py3-none-any.whl"
+            }
+        ]
+    },
+    "pip39_dependencies": {
+        "wheel": [
+            {
+                "module": "beautifulsoup4",
+                "input_file": "wheels/py3/beautifulsoup4-4.12.2-py3-none-any.whl"
+            },
+            {
+                "module": "soupsieve",
+                "input_file": "wheels/py3/soupsieve-2.5-py3-none-any.whl"
+            }
+        ]
+    }
 }

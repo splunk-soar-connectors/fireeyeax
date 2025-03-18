@@ -1,6 +1,6 @@
 # File: fireeyeax_consts.py
 #
-# Copyright (c) Robert Drouin, 2021-2023
+# Copyright (c) Robert Drouin, 2021-2025
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -121,7 +121,7 @@ FIREEYEAX_APPLICATION_CODES = {
     "Windows PowerShell": "192",
     "Windows Scripting Host": "98",
     "XML Handler": "241",
-    "XPS Viewer 1.0": "166"
+    "XPS Viewer 1.0": "166",
 }
 
 # Exception message handling constants

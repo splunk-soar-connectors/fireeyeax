@@ -16,8 +16,8 @@
         }
     ],
     "license": "Copyright (c) Robert Drouin, 2021-2025",
-    "app_version": "2.0.0",
-    "utctime_updated": "2022-01-07T21:06:38.000000Z",
+    "app_version": "2.0.1",
+    "utctime_updated": "2025-04-28T20:04:09.938482Z",
     "package_name": "phantom_fireeyeax",
     "main_module": "fireeyeax_connector.py",
     "min_phantom_version": "6.0.0",

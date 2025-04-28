@@ -1,7 +1,7 @@
 # Fireeye AX
 
 Publisher: Robert Drouin \
-Connector Version: 2.0.0 \
+Connector Version: 2.0.1 \
 Product Vendor: Fireeye \
 Product Name: Advanced Malware Analysis \
 Minimum Product Version: 6.0.0
